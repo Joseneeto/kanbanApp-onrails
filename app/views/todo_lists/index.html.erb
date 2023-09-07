@@ -1,14 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Todo lists</h1>
-
-<div id="todo_lists">
-  <% @todo_lists.each do |todo_list| %>
-    <%= render todo_list %>
-    <p>
-      <%= link_to "Show this todo list", todo_list %>
-    </p>
-  <% end %>
+<div class="card-header d-flex justify-content-between">
+  <h5>
+    Todo lists
+  </h5>
+  <%= link_to "New todo list", new_todo_list_path, class:'btn btn-primary btn-sm' %>
 </div>
 
-<%= link_to "New todo list", new_todo_list_path %>
+<ul class="list-group">
+  <% @todo_lists.each do |todo_list| %>
+    <li class="list-group-item d-flex justify-content-between">
+      <div>
+        <h6 class='m-0'>
+          <b><%= link_to todo_list.title, todo_list %></b>
+          <span class="badge badge-primary bg-<%= todo_list.badge_color%>"><%= todo_list.status%></span> 
+        </h6>
+        <p class='text-secondary m-0'><%= todo_list.percent_complete %>% Complete (<%= todo_list.completed_items %>/<%= todo_list.total_items %> Todo Items)</p>
+      </div>
+      <div>
+        <%= link_to "Edit", edit_todo_list_path(todo_list), class:'btn btn-secondary' %>
+        <%= link_to "Delete", edit_todo_list_path(todo_list), class:'btn btn-danger' %>
+      </div>  
+    </li>
+  <% end %>
+</ul>
